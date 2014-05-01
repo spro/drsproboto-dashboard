@@ -1,0 +1,125 @@
+extends base
+
+block head
+    title Dr. Sproboto
+
+block styles
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,300,500')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Inconsolata:400,700')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/css/jquery.jsonview.css')
+    link(rel='stylesheet', href='/css/behaviors.css')
+
+block scripts
+    script(src='/js/axis.js')
+    script(src='/js/jquery.jsonview.js')
+    script(src='/js/stayFit.js')
+    script(src='/js/behaviors.js')
+
+    script(type='text/html', id='message-view-template')
+        .row.item.message
+            .col-sm-3.nodes
+                span.sender
+                p
+                    span.label.type
+                    span.created_at
+            .col-sm-9
+                pre.code.data
+                pre.code.args
+
+    script(type='text/html', id='behavior-view-template')
+        .item.behavior
+            .actions
+                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
+                a.btn.btn-xs.btn-success(data-action='save') Save
+            textarea.form-control.query(name='query')
+            .arrow &rarr;
+            input.frameless.action(name='action')
+
+    script(type='text/html', id='action-view-template')
+        .item.action
+            .actions
+                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
+                a.btn.btn-xs.btn-success(data-action='save') Save
+            input.frameless.name(name='name')
+            textarea.form-control.code.toggled(name='code')
+
+block body
+    #line
+
+    #navigation
+        ul.nav.nav-tabs
+            li.head
+                img.avatar(src="/images/drsproboto.png")
+            li: a(data-toggle="tab", href="#charts")
+                i.fa.fa-bar-chart-o
+            li: a(data-toggle="tab", href="#messages")
+                i.fa.fa-comment-o
+            li: a(data-toggle="tab", href="#actions")
+                i.fa.fa-tasks
+            li: a(data-toggle="tab", href="#behaviors")
+                i.fa.fa-filter
+            li: a(data-toggle="tab", href="#console")
+                i.fa.fa-terminal
+
+    #content
+        .container
+            .tab-content
+                .tab-pane.active#charts
+                    .page-head
+                        h1 Dashboard
+
+                .tab-pane.active#messages
+                    .page-head
+                        h1 Messages
+
+                    // List items
+                    .page-body
+                        .items
+
+                .tab-pane#actions
+                    .page-head
+                        h1 Actions
+
+                    .page-body
+                        // Create new action
+                        form#new-action
+                            .form-group
+                                input.frameless(type='text', name='name', placeholder='name')
+                                textarea.code.form-control(name='code', placeholder='code')
+                            .pull-right
+                                a.btn.btn-sm.btn-success(data-action='save') Add Action
+                        .clearfix
+                        hr
+
+                        // List items
+                        .items
+
+                .tab-pane#behaviors
+                    .page-head
+                        h1 Behaviors
+
+                    .page-body
+                        // Create new behavior
+                        form#new-behavior
+                            .form-group
+                                textarea.query.form-control(name='query', placeholder='query')
+                                .arrow &rarr;
+                                input.frameless(type='text', name='action', placeholder='action')
+                            .pull-right
+                                a.btn.btn-sm.btn-success(data-action='save') Add Behavior
+                        .clearfix
+                        hr
+                        
+                        // List items
+                        .items
+
+                .tab-pane#console
+                    .page-head
+                        h1 Console
+                    .page-body
+                        .history
+                        form
+                            label.prompt &gt;
+                            input.console(placeholder="enter command")
+

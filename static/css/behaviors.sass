@@ -1,0 +1,282 @@
+body, h1, h2, h3, h4, h5, h6
+    font-family: "Roboto"
+
+a
+    color: #3a9edc
+
+textarea.form-control
+    resize: none
+    overflow-y: hidden
+    min-height: 0
+    display: block
+    height: auto
+    border: none
+
+#navigation
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    width: 55px
+    background: #2c2f2f
+    box-shadow: 2px 0 2px rgba(#000, 0.1)
+    z-index: 100
+    white-space: nowrap
+    overflow-x: scroll
+    overflow-y: hidden
+
+    .container
+        padding: 0
+
+    .nav.nav-tabs
+        padding: 0
+        text-align: left
+        border: none
+
+        li
+            float: none
+            display: block
+
+            margin: 0
+
+            font-size: 1em
+            font-weight: 300
+            border-top: 1px solid rgba(#555, 0.20)
+            border-bottom: 1px solid rgba(#222, 0.35)
+
+            &:last-child
+                border-bottom: none
+
+            &.active
+                border-top: 1px solid rgba(#111, 0.5)
+                border-bottom: 1px solid rgba(#111, 0.5)
+                a
+                    opacity: 1
+                    font-weight: 500
+                    border-left-color: #3a9edc
+                    border-right-color: #242424
+                    background: #242424
+                    &:hover, &:active
+                        background: #242424
+
+            a, &.head
+                padding: 14px 15px
+
+            &.head
+                .avatar
+                    display: block
+                    margin: 0 auto
+                color: #fff
+                font-weight: 500
+
+            a
+                display: block
+                text-align: center
+                border: none
+                color: #fff
+                margin: 0
+                opacity: 0.5
+                font: inherit
+                border-left: 3px solid transparent
+                border-right: 3px solid transparent
+                border-radius: 0
+                &:hover, &:active
+                    background: rgba(#222, 0.25)
+
+#content
+    position: absolute
+    top: 0
+    left: 55px
+    right: 0
+    bottom: 0
+
+    .container
+        width: 100%
+        padding: 0
+
+.page-head
+    padding: 15px
+    border-bottom: 1px solid #ddd
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.01)
+    position: fixed
+    background: rgba(#fff, 0.9)
+    z-index: 99
+    right: 0
+    left: 55px
+
+    h1
+        margin: 0
+        line-height: 1em
+        font-weight: 300
+        font-size: 1.7em
+
+.page-body
+    padding: 55px 15px 15px
+
+    .items
+        padding-top: 10px
+
+#console
+    .page-head
+        border-bottom: 1px solid #2c2c2c
+        background-color: rgba(#262626, 0.9)
+        color: #fff
+        box-shadow: none
+
+    .page-body
+        background: #222
+        padding-bottom: 5px
+        font-family: "Inconsolata", Monaco, "Oxygen Mono", monospace
+        color: #ccc
+
+    .history
+        .line
+            position: relative
+            p
+                padding: 10px
+                margin: 0
+                display: block
+                margin-left: 7px
+                color: #ccc
+        .response
+            margin: 0
+
+    form
+        margin: 0
+        position: relative
+
+    .prompt
+        color: #777
+        position: absolute
+        top: 10px
+    input
+        outline: none
+        border: none
+        -webkit-appearance: none
+        background: none
+        color: #ccc
+        margin: 0
+        padding: 10px
+        display: block
+        margin-left: 7px
+        width: 100%
+        &::-webkit-input-placeholder
+            color: #999
+            
+    pre
+        padding: 0 !important
+        background: none
+
+.item.message
+    padding: 0 0 10px
+
+    .created_at
+        color: #ccc
+        font-size: 0.9em
+
+    .nodes
+        font-size: 0.9em
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        span
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .label
+            margin-right: 6px
+        .type-script
+            background-color: #5b9b9f
+        .type-register
+            background-color: #cd975f
+        .type-unregister
+            background-color: #a44b38
+
+    .actions
+        text-align: right
+        position: relative
+        .btn
+            top: 0
+
+.table>thead>tr>th,
+.table>tbody>tr>td
+    border: none
+
+.behavior, .action
+    pre, textarea
+        margin-bottom: 0
+    margin-bottom: 10px
+    &:last-child
+        margin-bottom: 0px
+
+    .toggled
+        display: none
+    &.open
+        .toggled
+            display: block
+
+input.frameless
+    outline: none
+    border: none
+    margin: 0
+    padding: 0 0 2px
+    display: block
+    width: 100%
+    font-weight: 500
+
+.arrow
+    position: absolute
+    margin-left: 2px
+.arrow + input
+    padding-left: 25px !important
+
+form
+    margin: 10px 0
+
+pre, textarea
+    font-family: "Inconsolata", Monaco, "Oxygen Mono", monospace
+    font-size: 1em !important
+    word-break: break-all
+    word-wrap: break-word
+    border: none
+
+pre, textarea, .form-control
+    border-radius: 2px !important
+    padding: 7px 10px !important
+
+.query
+    background: #eee
+    border: none
+    color: #000
+
+.code
+    background: #2c2f2f
+    color: #fff
+    text-shadow: 0 1px 1px #111
+
+    a
+        color: #86D1FF
+
+.btn-success
+    background: #37b18f
+    &:hover, &:focus
+        background: #2c9377
+
+.modal-body>:first-child
+    margin-top: 0
+
+.item
+    position: relative
+    .actions
+        position: absolute
+        right: 0
+        opacity: 0
+        -webkit-transition: opacity 0.2s
+        .btn
+            margin-left: 5px
+            position: relative
+            top: -4px
+    &:hover
+        .actions
+            opacity: 1
+
