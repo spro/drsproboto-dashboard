@@ -20,9 +20,12 @@ MessageView::renderUpdate = ->
     $data = @$el.find('.data')
     if @model.get('type') in ['script', 'command', 'event']
         $data.text @model.get @model.get 'type'
-    else if @model.get('data')
-        $data.JSONView @model.get('data'), collapsed: true
-        $data.JSONView 'expand', 1
+    else if data = @model.get('data')
+        if typeof data == 'object'
+            $data.JSONView data, collapsed: true
+            $data.JSONView 'expand', 1
+        else
+            $data.text data
     else
         $data.hide()
 
