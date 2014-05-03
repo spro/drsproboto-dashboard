@@ -17,9 +17,14 @@ MessageView::renderUpdate = ->
     @$el.find('.type').addClass 'type-' + @model.get('type')
 
     # Render data
+    $summary = @$el.find('.summary')
     $data = @$el.find('.data')
+
     if @model.get('type') in ['script', 'command', 'event']
-        $data.text @model.get @model.get 'type'
+        $summary.text @model.get @model.get 'type'
+    else
+        $summary.hide()
+
     if data = @model.get('data')
         if typeof data == 'object'
             $data.JSONView data, collapsed: true
