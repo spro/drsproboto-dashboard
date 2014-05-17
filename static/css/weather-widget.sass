@@ -1,0 +1,25 @@
+#weather-widget
+    text-align: center
+
+    .body
+        padding-top: 50px
+
+    .icon
+        font-size: 90px
+        margin-right: 20px
+        position: relative
+        bottom: -5px
+        color: #ddd
+
+    .degrees
+        font-size: 60px
+        &::after
+            content: "°"
+
+    .wind
+        font-size: 20px
+        color: #999
+        i
+            margin-right: 10px
+        span:after
+            content: " mph"
