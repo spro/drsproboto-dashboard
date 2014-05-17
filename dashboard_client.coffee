@@ -25,14 +25,14 @@ app = polar.setup_app
 app.get '/', (req, res) ->
     res.render 'dashboard'
 
-app.post '/console', (req, res) ->
+app.post '/script', (req, res) ->
     script = req.body.script
-    console.log "Incoming script: " + script
     sent_msg = dashboard_client.send
         type: 'script'
         script: script
+        suppress: true
     pending_requests[sent_msg.id] = (message) =>
-        console.log 'receiving response: ' + util.inspect message
+        console.log "[response for #{ sent_msg.id }] #{ util.inspect message }"
         res.setHeader 'content-type', 'application/json'
         res.end JSON.stringify message
 
@@ -89,7 +89,7 @@ update_ = (type) ->
             res.setHeader 'content-type', 'application/json'
             res.end JSON.stringify updated_item
 
-for type in ['action', 'behavior', 'message']
+for type in ['action', 'behavior', 'message', 'email', 'tweet', 'github_event']
     list_ type
     delete_ type
     create_ type
