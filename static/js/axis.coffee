@@ -57,7 +57,7 @@ Axis.Collection = Backbone.Collection.extend
 
 Axis.ItemView = Backbone.View.extend
     initialize: ->
-        @template = $(@template || "##{ @type }-view-template").html()
+        @template = $(@template || "##{ @type }-template").html()
         @$el = $(@template)
         @model.on 'sync', @renderUpdate, @
 
@@ -107,14 +107,15 @@ Axis.ListView = Backbone.View.extend
         @collection.on 'add', @addItem, @
         @collection.on 'sync', @onSync, @
         @collection.on 'sort', @reset, @
-        @sort_data =
-            attr: 'status'
-            inc: true
-        @setSort()
+
+    onSync: ->
+        @isSynced = true
+        @render()
 
     addItem: (model) ->
-        item_view = new @ItemView({model: model})
-        @$el.find('.items').prepend item_view.render()
+        if @isSynced
+            item_view = new @ItemView({model: model})
+            @$el.find('.items').prepend item_view.render()
 
     changeSort: (e) ->
         sort_attr = $(e.target).data('sort')
@@ -149,11 +150,14 @@ Axis.ListView = Backbone.View.extend
         @render()
 
     render: ->
-        @collection.each @addItem, @
+        if @isSynced
+            console.log "[ListView] rendering..."
+            @collection.each @addItem, @
+            @delegateEvents()
 
 Axis.EditItemView = Axis.ItemView.extend
     initialize: ->
-        @template = $(@template || "#edit-#{ @type }-view-template").html()
+        @template = $(@template || "#edit-#{ @type }-template").html()
         @$el = $(@template)
 
     save: (e) ->
