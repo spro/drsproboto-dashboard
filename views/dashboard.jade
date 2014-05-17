@@ -9,26 +9,87 @@ block styles
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css')
     link(rel='stylesheet', href='/css/jquery.jsonview.css')
     link(rel='stylesheet', href='/css/dashboard.css')
+    link(rel='stylesheet', href='/css/chart.css')
 
 block scripts
+    script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js')
     script(src='/js/axis.js')
     script(src='/js/jquery.jsonview.js')
     script(src='/js/stayFit.js')
     script(src='/js/dashboard.js')
 
-    script(type='text/html', id='message-view-template')
-        .row.item.message
-            .col-sm-3.nodes
+    include messages-chart
+    include tweets-list
+    include sweater-widget
+    include weather-widget
+    include btc-chart
+
+    script(type='text/html', id='script-preview-template')
+        span
+            strong
                 span.sender
-                p
+                |  &rarr;
+            pre.script
+
+    script(type='text/html', id='btc-preview-template')
+        span
+            strong
+                i.fa.fa-btc
+                |  
+                span.last
+
+    script(type='text/html', id='scheduled-preview-template')
+        span
+            strong
+                i.fa.fa-clock-o
+            pre.script
+
+    script(type='text/html', id='email-preview-template')
+        span
+            strong
+                i.fa.fa-envelope
+                |  
+                span.from
+                |  
+            span.dark.subject
+            p.text
+
+    script(type='text/html', id='tweet-preview-template')
+        span
+            strong
+                i.fa.fa-twitter
+                |  
+                img.avatar
+                |  
+                span.screen_name
+                |  
+            span.text
+
+    script(type='text/html', id='github_event-preview-template')
+        span
+            strong
+                i.fa.fa-github
+                |  
+                span.username
+                |  
+            span.action
+            |  
+            strong.repo_name
+
+    script(type='text/html', id='message-template')
+        .item.message
+            .row.details
+                .col-sm-2
                     span.label.type
                     span.created_at
-            .col-sm-9
-                pre.summary
-                pre.code.data
-                pre.code.args
+                .col-sm-10
+                    .preview
+                        strong.sender
+                        pre.summary
+            .full
+                pre.code
 
-    script(type='text/html', id='behavior-view-template')
+    script(type='text/html', id='behavior-template')
         .item.behavior
             .actions
                 a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
@@ -37,7 +98,7 @@ block scripts
             .arrow &rarr;
             input.frameless.action(name='action')
 
-    script(type='text/html', id='action-view-template')
+    script(type='text/html', id='action-template')
         .item.action
             .actions
                 a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
@@ -52,10 +113,16 @@ block body
         ul.nav.nav-tabs
             li.head
                 img.avatar(src="/images/drsproboto.png")
-            li: a(data-toggle="tab", href="#charts")
+            li: a(data-toggle="tab", href="#dashboard")
                 i.fa.fa-bar-chart-o
             li: a(data-toggle="tab", href="#messages")
                 i.fa.fa-comment-o
+            li: a(data-toggle="tab", href="#emails")
+                i.fa.fa-envelope
+            li: a(data-toggle="tab", href="#tweets")
+                i.fa.fa-twitter
+            li: a(data-toggle="tab", href="#github_events")
+                i.fa.fa-github
             li: a(data-toggle="tab", href="#actions")
                 i.fa.fa-tasks
             li: a(data-toggle="tab", href="#behaviors")
@@ -66,13 +133,47 @@ block body
     #content
         .container
             .tab-content
-                .tab-pane.active#charts
+                .tab-pane.active#dashboard
                     .page-head
                         h1 Dashboard
+                
+                    .page-body
 
-                .tab-pane.active#messages
+                .tab-pane#messages
                     .page-head
+
+                        .filters.pull-right
+                            span.label.type.type-script.active script
+                            span.label.type.type-event.active event
+                            span.label.type.type-response.active response
+                            span.label.type.type-register.active register
+                            span.label.type.type-unregister.active unregister
+
                         h1 Messages
+
+                    // List items
+                    .page-body
+                        .container-fluid.items
+
+                .tab-pane#emails
+                    .page-head
+                        h1 Emails
+
+                    // List items
+                    .page-body
+                        .container-fluid.items
+
+                .tab-pane#tweets
+                    .page-head
+                        h1 Tweets
+
+                    // List items
+                    .page-body
+                        .items
+
+                .tab-pane#github_events
+                    .page-head
+                        h1 Github Activity
 
                     // List items
                     .page-body
@@ -122,5 +223,5 @@ block body
                         .history
                         form
                             label.prompt &gt;
-                            input.console(placeholder="enter command")
+                            input.script(placeholder="enter command")
 
