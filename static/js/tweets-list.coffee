@@ -12,6 +12,7 @@ class TweetItem extends Backbone.View
     render: ->
         @$('.avatar').attr 'src', @tweet.get('data').user.profile_image_url
         @$('.screen_name').text @tweet.get('data').user.screen_name
+        @$('.time').text moment(@tweet.get('data').created_at).fromNow()
         @$('.text').text @tweet.get('data').text
         @
 

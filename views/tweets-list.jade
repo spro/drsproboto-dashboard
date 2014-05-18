@@ -2,11 +2,12 @@ link(rel='stylesheet', href='/css/tweets-list.css')
 script(src='/js/tweets-list.js')
 script(type='text/html', id='tweet-item-template')
     .tweet-item
-        strong
-            img.avatar
+        img.avatar
+        |  
+        div
+            strong.screen_name
             |  
-            span.screen_name
-            |  
+            span.time
         span.text
 script(type='text/html', id='tweets-list-template')
     .widget#tweets-list
