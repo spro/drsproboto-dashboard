@@ -33,13 +33,13 @@ class MessagesChart extends Backbone.View
         $option.closest('.select').find('.selected').text selected
         @getMessages selected
 
-    getMessages: (n = 100) ->
+    getMessages: (n = 250) ->
         $.post '/script', {script: get_messages_script(n)}, (msg) =>
             @render msg.data
 
     render: (_data) ->
         @width = $(@elid).width()
-        @height = 200
+        @height = $(@elid).height() - 40
 
         # Clear previous chart
         d3.select('#messages-chart .chart svg').remove()
@@ -72,15 +72,16 @@ class MessagesChart extends Backbone.View
             .range([@height, 0])
         window.y = y
 
+        # Create containing SVG
         svg = d3.select('#messages-chart .chart').append('svg')
             .attr('width', @width)
-            .attr('height', @height + 20)
+            .attr('height', @height + 30)
             .append('g')
 
         # Draw the axis
         svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', "translate(0, #{ @height + 5 })")
+            .attr('transform', "translate(0, #{ @height + 10 })")
             .call(xAxis)
             .selectAll('text')
                 .attr('x', -3)

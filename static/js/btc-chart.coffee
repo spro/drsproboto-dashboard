@@ -24,7 +24,7 @@ class BTCChart extends Backbone.View
     render: (_data) ->
 
         @width = $(@elid).width()
-        @height = 200
+        @height = $(@elid).height() - 40
 
         # X axis over time
         x = d3.time.scale()
@@ -41,7 +41,7 @@ class BTCChart extends Backbone.View
         d3.select(@elid)
             .append('svg')
             .attr('width', @width)
-            .attr('height', @height + 20)
+            .attr('height', @height + 30)
             .append('path')
             .attr('class', 'sparkline')
 
@@ -71,7 +71,7 @@ class BTCChart extends Backbone.View
         # Draw the axis
         d3.select(@elid + ' svg').append('g')
             .attr('class', 'x axis')
-            .attr('transform', "translate(0, #{ @height + 5 })")
+            .attr('transform', "translate(0, #{ @height + 10 })")
             .call(xAxis)
             .selectAll('text')
                 .attr('x', -3)
