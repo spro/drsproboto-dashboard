@@ -1,0 +1,24 @@
+.loading
+    -webkit-transform: translate3d(0,0,0)
+    position: absolute
+    z-index: 400
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    .loader
+        position: absolute
+        width: 32px
+        height: 32px
+        -webkit-animation-name: rotate
+        -webkit-animation-duration: 1.0s
+        -webkit-animation-iteration-count: infinite
+        -webkit-animation-timing-function: linear
+
+@-webkit-keyframes rotate
+    from
+        -webkit-transform: rotate(0deg)
+    to
+        -webkit-transform: rotate(360deg)
+
+

@@ -15,7 +15,6 @@ DashboardView = Backbone.View.extend
 
     initialize: ->
         console.log "Creating Dashboard"
-        @render()
 
     render: ->
         $row1 = $('<div class="row">')
@@ -208,7 +207,7 @@ GithubEvents = Messages.extend
 GithubEventsView = MessagesView.extend
     type: 'github_event'
     collection: 'github_events'
-    el: "#github_events"
+    el: "#github"
 
 Tweet = Message.extend
     type: 'tweet'
@@ -254,23 +253,20 @@ $ ->
     window.dashboard_view = new DashboardView
 
     window.emails = new Emails()
-    window.emails.fetch()
     window.emails_view = new EmailsView
         collection: window.emails
 
     window.tweets = new Tweets()
-    window.tweets.fetch()
     window.tweets_view = new TweetsView
         collection: window.tweets
 
     window.github_events = new GithubEvents()
-    window.github_events.fetch()
     window.github_events_view = new GithubEventsView
         collection: window.github_events
 
     # Activate proper tab when loading
     if !window.location.hash
-        window.location.hash = '#messages'
+        window.location.hash = '#dashboard'
     $(".nav-tabs a[href=#{ window.location.hash }]").tab('show')
     switchToTab window.location.hash
 
@@ -282,6 +278,40 @@ $ ->
     # Handle keydown events in console
     $('#console input').on 'keydown', consoleKeydown
 
+showLoading = (view) ->
+
+    # Create loading indicator
+    $loading = initTemplate 'loading'
+
+    # Center in view
+    s = $loading.width()
+    $loading.offset
+        top: ($(window).height() - s) / 2
+        left: ($(window).width() - s) / 2
+    view.$el.append $loading
+
+    # Fetch the collection and remove indicator when done
+    view.collection.fetch()
+    view.collection.once 'sync', ->
+        $loading.remove()
+
+prepareTab =
+    default: ->
+        $('body').css 'background-color', '#fff'
+
+    messages: -> showLoading messages_view
+    tweets: -> showLoading tweets_view
+    emails: -> showLoading emails_view
+    github: -> showLoading github_events_view
+
+    dashboard: ->
+        $('body').css 'background-color', '#eee'
+        dashboard_view.render()
+
+    console: ->
+        $('#console').find('input').first().focus()
+        $('body').css 'background-color', '#222'
+
 # When switching to a new tab, set the location hash and run
 # stayFit on the textareas, then do any tab-specific things
 switchToTab = (tabHash) ->
@@ -290,16 +320,10 @@ switchToTab = (tabHash) ->
     $('body').scrollTop 0
     console.log 'scrolld up'
 
-    # Focus on console input if console tab
-    if tabHash == '#console'
-        console.log 'a console'
-        $(tabHash).find('input').first().focus()
-        #$('#console .page-body').css 'height', $(window).height()
-        $('body').css 'background-color', '#222'
-    else if tabHash == '#dashboard'
-        $('body').css 'background-color', '#eee'
-    else
-        $('body').css 'background-color', '#fff'
+    # Do tab-specific rendering
+    tabId = tabHash.slice(1)
+    prepareTab.default()
+    prepareTab[tabId]()
 
 # Keep console view focused on last scripts by adjusting container's scrollTop
 # Triggered upon every new script or response to a script

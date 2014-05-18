@@ -255,9 +255,10 @@ Axis.initiate_models = (type, options={}) ->
     Collection = collection[0].toUpperCase() + collection.slice(1)
 
     window[collection] = new window[Collection]()
-    fetch_options =
-        data: options.query
-    window[collection].fetch(fetch_options)
+    if options.fetch
+        fetch_options =
+            data: options.query
+        window[collection].fetch(fetch_options)
 
 Axis.initiate_views = (type, options={}) ->
     Type = type[0].toUpperCase() + type.slice(1)
