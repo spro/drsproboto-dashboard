@@ -92,8 +92,8 @@ block scripts
             .full
                 pre.code
 
-    script(type='text/html', id='behavior-template')
-        .item.behavior
+    script(type='text/html', id='trigger-template')
+        .item.trigger
             .actions
                 a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
                 a.btn.btn-xs.btn-success(data-action='save') Save
@@ -126,9 +126,9 @@ block body
                 i.fa.fa-twitter
             li: a(data-toggle="tab", href="#github")
                 i.fa.fa-github
-            li: a(data-toggle="tab", href="#actions")
+            li: a(data-toggle="tab", href="#todo")
                 i.fa.fa-tasks
-            li: a(data-toggle="tab", href="#behaviors")
+            li: a(data-toggle="tab", href="#trigger")
                 i.fa.fa-filter
             li: a(data-toggle="tab", href="#console")
                 i.fa.fa-terminal
@@ -182,37 +182,27 @@ block body
                     .page-body
                         .items
 
-                .tab-pane#actions
+                .tab-pane#todo
                     .page-head
-                        h1 Actions
+                        h1 To Do
 
+                    // List items
                     .page-body
-                        // Create new action
-                        form#new-action
-                            .form-group
-                                input.frameless(type='text', name='name', placeholder='name')
-                                textarea.code.form-control(name='code', placeholder='code')
-                            .pull-right
-                                a.btn.btn-sm.btn-success(data-action='save') Add Action
-                        .clearfix
-                        hr
-
-                        // List items
                         .items
 
-                .tab-pane#behaviors
+                .tab-pane#triggers
                     .page-head
-                        h1 Behaviors
+                        h1 Triggers
 
                     .page-body
-                        // Create new behavior
-                        form#new-behavior
+                        // Create new trigger
+                        form#new-trigger
                             .form-group
                                 textarea.query.form-control(name='query', placeholder='query')
                                 .arrow &rarr;
                                 input.frameless(type='text', name='action', placeholder='action')
                             .pull-right
-                                a.btn.btn-sm.btn-success(data-action='save') Add Behavior
+                                a.btn.btn-sm.btn-success(data-action='save') Add trigger
                         .clearfix
                         hr
                         

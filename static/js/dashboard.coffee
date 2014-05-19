@@ -233,17 +233,16 @@ EmailsView = MessagesView.extend
     collection: 'emails'
     el: "#emails"
 
-ActionView::events =
-    'click': 'open'
-    'click [data-action]': 'call'
-
-ActionView::open = (e) ->
-    return if $(e.target)[0].tagName != 'INPUT'
-    @$el.toggleClass 'open'
-    @$el.find('textarea').stayFit()
-
-BehaviorView::save = EditBehaviorView::save
-ActionView::save = EditActionView::save
+Todo = Backbone.Model.extend()
+TodoView = Axis.ItemView.extend
+    Type: 'Todo'
+    type: 'todo'
+Todos = Axis.Collection.extend()
+TodosView = Axis.ListView.extend
+    Type: Todo
+    type: 'todo'
+    collection: 'todos'
+    el: '#todo'
 
 $ ->
     for _type, _attrs of schema
@@ -254,15 +253,19 @@ $ ->
 
     window.emails = new Emails()
     window.emails_view = new EmailsView
-        collection: window.emails
+        collection: emails
 
     window.tweets = new Tweets()
     window.tweets_view = new TweetsView
-        collection: window.tweets
+        collection: tweets
 
     window.github_events = new GithubEvents()
     window.github_events_view = new GithubEventsView
-        collection: window.github_events
+        collection: github_events
+
+    window.todos = new Todos()
+    window.todos_view = new TodosView
+        collection: todos
 
     # Activate proper tab when loading
     if !window.location.hash
@@ -303,6 +306,7 @@ prepareTab =
     tweets: -> showLoading tweets_view
     emails: -> showLoading emails_view
     github: -> showLoading github_events_view
+    todo: -> showLoading todos_view
 
     dashboard: ->
         $('body').css 'background-color', '#eee'
