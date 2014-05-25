@@ -2,6 +2,7 @@ schema =
     action: ['name', 'code']
     behavior: ['query', 'action']
     message: ['sender', 'type', 'data']
+    trigger: ['key', 'match', 'run']
 
 for _type, _attrs of schema
     Axis.create_generic_models _type
@@ -244,6 +245,13 @@ TodosView = Axis.ListView.extend
     collection: 'todos'
     el: '#todo'
 
+TriggerView::save = EditTriggerView::save
+TriggerView::renderUpdate = ->
+    super
+    setTimeout =>
+        @$el.find('textarea').stayFit()
+    , 100
+
 $ ->
     for _type, _attrs of schema
         Axis.initiate_models _type
@@ -266,6 +274,10 @@ $ ->
     window.todos = new Todos()
     window.todos_view = new TodosView
         collection: todos
+
+    window.triggers = new Triggers()
+    window.triggers_view = new TriggersView
+        collection: triggers
 
     # Activate proper tab when loading
     if !window.location.hash
@@ -307,6 +319,7 @@ prepareTab =
     emails: -> showLoading emails_view
     github: -> showLoading github_events_view
     todo: -> showLoading todos_view
+    triggers: -> showLoading triggers_view
 
     dashboard: ->
         $('body').css 'background-color', '#eee'

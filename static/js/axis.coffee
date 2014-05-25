@@ -105,17 +105,16 @@ Axis.ListView = Backbone.View.extend
 
     initialize: ->
         @collection.on 'add', @addItem, @
-        @collection.on 'sync', @onSync, @
-        @collection.on 'sort', @reset, @
+        @collection.on 'reset', @reset, @
 
     onSync: ->
+        console.log 'syncing...'
         @isSynced = true
         @render()
 
     addItem: (model) ->
-        if @isSynced
-            item_view = new @ItemView({model: model})
-            @$el.find('.items').prepend item_view.render()
+        item_view = new @ItemView({model: model})
+        @$el.find('.items').prepend item_view.render()
 
     changeSort: (e) ->
         sort_attr = $(e.target).data('sort')

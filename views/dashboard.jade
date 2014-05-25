@@ -97,9 +97,9 @@ block scripts
             .actions
                 a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
                 a.btn.btn-xs.btn-success(data-action='save') Save
-            textarea.form-control.query(name='query')
+            input.frameless.match(name='match')
             .arrow &rarr;
-            input.frameless.action(name='action')
+            textarea.form-control.code.run(name='run')
 
     script(type='text/html', id='action-template')
         .item.action
@@ -128,7 +128,7 @@ block body
                 i.fa.fa-github
             li: a(data-toggle="tab", href="#todo")
                 i.fa.fa-tasks
-            li: a(data-toggle="tab", href="#trigger")
+            li: a(data-toggle="tab", href="#triggers")
                 i.fa.fa-filter
             li: a(data-toggle="tab", href="#console")
                 i.fa.fa-terminal
@@ -198,20 +198,20 @@ block body
                         // Create new trigger
                         form#new-trigger
                             .form-group
-                                textarea.query.form-control(name='query', placeholder='query')
+                                input.frameless.match(name='match', placeholder='match')
                                 .arrow &rarr;
-                                input.frameless(type='text', name='action', placeholder='action')
+                                textarea.code.run(type='text', name='run', placeholder='run')
                             .pull-right
                                 a.btn.btn-sm.btn-success(data-action='save') Add trigger
                         .clearfix
-                        hr
-                        
+
                         // List items
                         .items
 
                 .tab-pane#console
                     .page-head
                         h1 Console
+
                     .page-body
                         .history
                         form
