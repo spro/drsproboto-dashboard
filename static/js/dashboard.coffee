@@ -66,15 +66,14 @@ MessagesView::events =
 
 MessagesView::typed_views = {}
 MessagesView::addItem = (model) ->
-    if @isSynced
-        item_view = new @ItemView({model: model})
+    item_view = new @ItemView({model: model})
 
-        # Add to collection of typed views
-        typed_views = @typed_views[model.get('type')] or []
-        typed_views.push item_view
-        @typed_views[model.get('type')] = typed_views
+    # Add to collection of typed views
+    typed_views = @typed_views[model.get('type')] or []
+    typed_views.push item_view
+    @typed_views[model.get('type')] = typed_views
 
-        @$el.find('.items').prepend item_view.render()
+    @$el.find('.items').prepend item_view.render()
 
 MessagesView::toggleFilter = (e) ->
     console.log 'o hea?'

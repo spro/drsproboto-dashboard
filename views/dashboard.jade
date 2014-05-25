@@ -97,9 +97,9 @@ block scripts
             .actions
                 a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
                 a.btn.btn-xs.btn-success(data-action='save') Save
-            input.frameless.match(name='match')
-            .arrow &rarr;
-            textarea.form-control.code.run(name='run')
+            input.frameless.key(name='key')
+            textarea.match(name='match')
+            textarea.code.run(name='run')
 
     script(type='text/html', id='action-template')
         .item.action
@@ -198,8 +198,8 @@ block body
                         // Create new trigger
                         form#new-trigger
                             .form-group
-                                input.frameless.match(name='match', placeholder='match')
-                                .arrow &rarr;
+                                input.frameless.key(name='key', placeholder='key')
+                                textarea.match(name='match', placeholder='match')
                                 textarea.code.run(type='text', name='run', placeholder='run')
                             .pull-right
                                 a.btn.btn-sm.btn-success(data-action='save') Add trigger
