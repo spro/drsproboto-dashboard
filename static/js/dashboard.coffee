@@ -63,6 +63,12 @@ DashboardView = Backbone.View.extend
 
 MessageView::events =
     'click .details': 'toggleOpen'
+    'click a[href]': 'openLink'
+
+MessageView::openLink = (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    window.open $(e.target).attr('href')
 
 MessageView::toggleOpen = ->
     @$el.find('.full').slideToggle()
@@ -122,7 +128,11 @@ render_tweet = (msg) ->
     tweet = msg.get('data')
     $el.find('.screen_name').text tweet.user.screen_name
     $el.find('.avatar').attr 'src', tweet.user.profile_image_url
-    $el.find('.text').text tweet.text
+    tweet_text = tweet.text
+    for url in tweet.entities.urls
+        expanded_url = "<a href='#{ url.expanded_url }'>#{ url.display_url }</a>"
+        tweet_text = tweet_text.replace url.url, expanded_url
+    $el.find('.text').html tweet_text
     return $el
 
 render_github_event = (msg) ->
