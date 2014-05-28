@@ -26,25 +26,25 @@ DashboardView = Backbone.View.extend
         $col4 = $('<div class="col-md-4">')
         $col5 = $('<div class="col-md-4">')
 
-        messages_chart = new MessagesChart()
-        $col1.append messages_chart.$el
-        messages_chart.getMessages()
+        @messages_chart = new MessagesChart()
+        $col1.append @messages_chart.$el
+        @messages_chart.getMessages()
 
-        tweets_list = new TweetsList()
-        $col2.append tweets_list.$el
-        tweets_list.getTweets()
+        @tweets_list = new TweetsList()
+        $col2.append @tweets_list.$el
+        @tweets_list.getTweets()
 
-        btc_chart = new BTCChart()
-        $col3.append btc_chart.$el
-        btc_chart.getBTCs()
+        @btc_chart = new BTCChart()
+        $col3.append @btc_chart.$el
+        @btc_chart.getBTCs()
 
-        weather_widget = new WeatherWidget()
-        $col4.append weather_widget.$el
-        weather_widget.getWeather()
+        @weather_widget = new WeatherWidget()
+        $col4.append @weather_widget.$el
+        @weather_widget.getWeather()
 
-        sweater_widget = new SweaterWidget()
-        $col5.append sweater_widget.$el
-        sweater_widget.getSweater()
+        @sweater_widget = new SweaterWidget()
+        $col5.append @sweater_widget.$el
+        @sweater_widget.getSweater()
 
         $row1.append $col1
         $row1.append $col2
@@ -54,6 +54,12 @@ DashboardView = Backbone.View.extend
 
         @$el.append $row1
         @$el.append $row2
+
+        $(window).on 'resize', => @reRender()
+
+    reRender: ->
+        @messages_chart.render()
+        @btc_chart.render()
 
 MessageView::events =
     'click .details': 'toggleOpen'

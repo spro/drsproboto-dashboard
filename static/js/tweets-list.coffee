@@ -21,7 +21,7 @@ class TweetsList extends Backbone.View
     initialize: ->
         @$el = initTemplate 'tweets-list'
 
-    getTweets: (n = 10) ->
+    getTweets: (n = 50) ->
         $.post '/script', {script: get_tweets_script(n)}, (msg) =>
             @render msg.data
 
