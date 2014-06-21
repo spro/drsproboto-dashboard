@@ -26,25 +26,25 @@ DashboardView = Backbone.View.extend
         $col4 = $('<div class="col-md-4">')
         $col5 = $('<div class="col-md-4">')
 
-        messages_chart = new MessagesChart()
-        $col1.append messages_chart.$el
-        messages_chart.getMessages()
+        @messages_chart = new MessagesChart()
+        $col1.append @messages_chart.$el
+        @messages_chart.getMessages()
 
-        tweets_list = new TweetsList()
-        $col2.append tweets_list.$el
-        tweets_list.getTweets()
+        @tweets_list = new TweetsList()
+        $col2.append @tweets_list.$el
+        @tweets_list.getTweets()
 
-        btc_chart = new BTCChart()
-        $col3.append btc_chart.$el
-        btc_chart.getBTCs()
+        @btc_chart = new BTCChart()
+        $col3.append @btc_chart.$el
+        @btc_chart.getBTCs()
 
-        weather_widget = new WeatherWidget()
-        $col4.append weather_widget.$el
-        weather_widget.getWeather()
+        @weather_widget = new WeatherWidget()
+        $col4.append @weather_widget.$el
+        @weather_widget.getWeather()
 
-        sweater_widget = new SweaterWidget()
-        $col5.append sweater_widget.$el
-        sweater_widget.getSweater()
+        @sweater_widget = new SweaterWidget()
+        $col5.append @sweater_widget.$el
+        @sweater_widget.getSweater()
 
         $row1.append $col1
         $row1.append $col2
@@ -55,8 +55,20 @@ DashboardView = Backbone.View.extend
         @$el.append $row1
         @$el.append $row2
 
+        $(window).on 'resize', => @reRender()
+
+    reRender: ->
+        @messages_chart.render()
+        @btc_chart.render()
+
 MessageView::events =
     'click .details': 'toggleOpen'
+    'click a[href]': 'openLink'
+
+MessageView::openLink = (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    window.open $(e.target).attr('href')
 
 MessageView::toggleOpen = ->
     @$el.find('.full').slideToggle()
@@ -116,7 +128,11 @@ render_tweet = (msg) ->
     tweet = msg.get('data')
     $el.find('.screen_name').text tweet.user.screen_name
     $el.find('.avatar').attr 'src', tweet.user.profile_image_url
-    $el.find('.text').text tweet.text
+    tweet_text = tweet.text
+    for url in tweet.entities.urls
+        expanded_url = "<a href='#{ url.expanded_url }'>#{ url.display_url }</a>"
+        tweet_text = tweet_text.replace url.url, expanded_url
+    $el.find('.text').html tweet_text
     return $el
 
 render_github_event = (msg) ->

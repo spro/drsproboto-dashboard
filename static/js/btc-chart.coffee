@@ -7,7 +7,7 @@ class BTCChart extends Backbone.View
     events:
         'click .settings .select': 'clickSelect'
         'click .settings .select .option': 'clickOption'
-    
+
     clickSelect: (e) ->
         $(e.currentTarget).find('.options').toggle()
 
@@ -22,6 +22,10 @@ class BTCChart extends Backbone.View
             @render msg.data
 
     render: (_data) ->
+        if !_data?
+            _data = @last_data
+        else
+            @last_data = _data
 
         @width = $(@elid).width()
         @height = $(@elid).height() - 40

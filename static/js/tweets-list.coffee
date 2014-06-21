@@ -5,6 +5,9 @@ get_tweets_script = (n) -> """
 class Tweet extends Backbone.Model
 
 class TweetItem extends Backbone.View
+    events:
+        'click a[href]': 'openLink'
+
     initialize: (_tweet) ->
         @tweet = new Tweet _tweet
         @$el = initTemplate 'tweet-item'
@@ -13,15 +16,24 @@ class TweetItem extends Backbone.View
         @$('.avatar').attr 'src', @tweet.get('data').user.profile_image_url
         @$('.screen_name').text @tweet.get('data').user.screen_name
         @$('.time').text moment(@tweet.get('data').created_at).fromNow()
-        @$('.text').text @tweet.get('data').text
+        tweet_text = @tweet.get('data').text
+        for url in @tweet.get('data').entities.urls
+            expanded_url = "<a href='#{ url.expanded_url }'>#{ url.display_url }</a>"
+            tweet_text = tweet_text.replace url.url, expanded_url
+        @$('.text').html tweet_text
         @
+
+    openLink: (e) ->
+        e.stopPropagation()
+        e.preventDefault()
+        window.open $(e.target).attr('href')
 
 class TweetsList extends Backbone.View
 
     initialize: ->
         @$el = initTemplate 'tweets-list'
 
-    getTweets: (n = 10) ->
+    getTweets: (n = 50) ->
         $.post '/script', {script: get_tweets_script(n)}, (msg) =>
             @render msg.data
 
