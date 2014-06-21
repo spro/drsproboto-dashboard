@@ -3,9 +3,19 @@ class window.SweaterWidget extends Backbone.View
     initialize: ->
         @$el = initTemplate 'sweater-widget'
 
-    getSweater: (n = 10) ->
+    getSweater: ->
         $.post '/script', {script: 'sweater'}, (msg) =>
             @render msg.data
+
+    sweaterYes: (e) ->
+        @$('[data-action=sweaterYes]').addClass 'active'
+        $.post '/script', {script: 'sweater-yes'}, (msg) =>
+            @getSweater()
+
+    sweaterNo: (e) ->
+        @$('[data-action=sweaterNo]').addClass 'active'
+        $.post '/script', {script: 'sweater-no'}, (msg) =>
+            @getSweater()
 
     render: (_data) ->
         if _data.sweater > 0.75
