@@ -6,7 +6,8 @@
         top: 0
         left: 0
         right: 0
-        bottom: auto
+        top: auto
+        bottom: 0
         width: auto
         height: 50px
         overflow-y: hidden
@@ -14,6 +15,10 @@
         .nav.nav-tabs
             li
                 display: inline-block
+                vertical-align: top
+
+                a
+                    padding: 15px 18px
 
                 &.active
                     a
@@ -22,13 +27,16 @@
                 &.head
                     .avatar
                         display: inline-block
+                        position: relative
+                        top: -2px
+
     #content
         left: 0
-        top: 0
 
         .page-head
-            position: static
-            padding: 66px 10px 15px
+            padding: 16px 10px 15px
+            top: 0
+            left: 0
             background: #f3f3f3
             border-bottom: none
             .label
@@ -40,7 +48,7 @@
                 &:first-letter
                     font-size: 12px
         .page-body
-            padding-top: 0
+            padding-top: 55px
             background: #f3f3f3
 
     .page-body > .items
@@ -49,10 +57,9 @@
     .item.message
         background: #fff
         box-shadow: 0 2px 0 #e3e3e3
-        border-bottom: 9px solid transparent
-        .details
-            .preview
-                //white-space: normal
+        margin-bottom: 5px
+        &:last-child
+            margin-bottom: 0
 
     .widget
         margin-top: 0
