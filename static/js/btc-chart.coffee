@@ -65,6 +65,11 @@ class BTCChart extends Backbone.View
             .ticks(5)
             .tickFormat d3.time.format '%I:%M'
 
+        yAxis = d3.svg.axis()
+            .scale(y)
+            .orient('left')
+            .ticks(5)
+
         p = d3.select(@elid).select('path')
             .datum(data)
 
@@ -72,7 +77,7 @@ class BTCChart extends Backbone.View
             .attr('transform', null)
             .transition()
 
-        # Draw the axis
+        # Draw the axes
         d3.select(@elid + ' svg').append('g')
             .attr('class', 'x axis')
             .attr('transform', "translate(0, #{ @height + 10 })")
@@ -80,6 +85,13 @@ class BTCChart extends Backbone.View
             .selectAll('text')
                 .attr('x', -3)
                 .style('text-anchor', 'start')
+        d3.select(@elid + ' svg').append('g')
+            .attr('class', 'y axis')
+            .attr('transform', "translate(#{ @width }, 0)")
+            .call(yAxis)
+            .selectAll('text')
+                .attr('x', -5)
+                .style('text-anchor', 'end')
 
         @delegateEvents()
 
