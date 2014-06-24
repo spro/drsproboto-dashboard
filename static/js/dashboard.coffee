@@ -2,6 +2,7 @@ schema =
     action: ['name', 'code']
     behavior: ['query', 'action']
     message: ['sender', 'type', 'data']
+    todo: ['body']
     trigger: ['key', 'match', 'run']
 
 for _type, _attrs of schema
@@ -139,24 +140,28 @@ render_github_event = (msg) ->
     $el = $($("#github_event-preview-template").html())
     if msg.get('data').pusher
         $el.find('.username').text msg.get('data').pusher.name
+        $el.find('.avatar').attr 'src', gravatarUrl msg.get('data').pusher.email
         $el.find('.action').text 'pushed to'
         $el.find('.repo_name').text msg.get('data').repository.name
     else
         $el.find('.action').text '???'
     return $el
 
+gravatarUrl = (s) ->
+    'http://gravatar.com/avatar/' + md5(s)
+
 render_email = (msg) ->
     $el = $($("#email-preview-template").html())
     email = msg.get('data')
-    $el.find('.from').text email.from
+    $el.find('.from').text email.from_name || email.from
     $el.find('.subject').text email.subject
-    $el.find('.text').text email.stripped_text
+    $el.find('.text').text email.stripped_text?.slice(0, 250)
     return $el
 
 MessageView::renderUpdate = ->
     super()
     timestamp = parseInt(@model.get('_id').substring(0,8), 16) * 1000
-    @$el.find('.created_at').text moment(timestamp).fromNow()
+    @$el.find('.created_at').text moment(timestamp).fromNow().replace('minutes', 'min')
     @$el.find('.type').addClass 'type-' + @model.get('type')
 
     # Render data
@@ -165,6 +170,7 @@ MessageView::renderUpdate = ->
     $full = @$el.find('.full pre')
 
     type = @model.get('type')
+    @$el.addClass type
 
     if type == 'register'
         $preview.empty().append render_register @model
@@ -180,6 +186,7 @@ MessageView::renderUpdate = ->
 
     else if type == 'event' and @model.get('event') == 'tweet'
         $preview.empty().append render_tweet @model
+        @$el.addClass 'tweet'
 
     else if type == 'event' and @model.get('event') == 'github'
         $preview.empty().append render_github_event @model
@@ -249,16 +256,20 @@ EmailsView = MessagesView.extend
     collection: 'emails'
     el: "#emails"
 
-Todo = Backbone.Model.extend()
-TodoView = Axis.ItemView.extend
-    Type: 'Todo'
-    type: 'todo'
-Todos = Axis.Collection.extend()
-TodosView = Axis.ListView.extend
-    Type: Todo
-    type: 'todo'
-    collection: 'todos'
-    el: '#todo'
+Todo::parse = (todo) ->
+    console.log 'parsing ' + todo.body
+    tags = todo.body.match /#\w+/g
+    for tag in tags
+        todo.body = todo.body.replace(tag, '')
+    todo.body = todo.body.trim()
+    todo.tags = tags
+    return todo
+TodoView::renderUpdate = ->
+    super
+    @$('.body').text @model.get 'body'
+    for tag in @model.get('tags')
+        $t = $("<span class='tag'>#{ tag }</span>")
+        @$('.tags').append $t
 
 TriggerView::save = EditTriggerView::save
 TriggerView::renderUpdate = ->
@@ -318,12 +329,17 @@ showLoading = (view) ->
     $loading.offset
         top: ($(window).height() - s) / 2
         left: ($(window).width() - s) / 2
-    view.$el.append $loading
+    if view.$el.find('.items').length
+        view.$el.find('.items').append $loading
+        view.$el.find('.items').height($(window).height())
+    else
+        view.$el.append $loading
 
     # Fetch the collection and remove indicator when done
     view.collection.fetch()
     view.collection.once 'sync', ->
         $loading.remove()
+        view.$el.find('.items').height('auto')
 
 prepareTab =
     default: ->
@@ -333,7 +349,7 @@ prepareTab =
     tweets: -> showLoading tweets_view
     emails: -> showLoading emails_view
     github: -> showLoading github_events_view
-    todo: -> showLoading todos_view
+    todos: -> showLoading todos_view
     triggers: -> showLoading triggers_view
 
     dashboard: ->
