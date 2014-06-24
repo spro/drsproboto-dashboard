@@ -9,12 +9,14 @@ block styles
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css')
     link(rel='stylesheet', href='/css/jquery.jsonview.css')
     link(rel='stylesheet', href='/css/dashboard.css')
-    link(rel='stylesheet', href='/css/dashboard-mobile.css')
     link(rel='stylesheet', href='/css/chart.css')
     link(rel='stylesheet', href='/css/loading.css')
+    link(rel='stylesheet', href='/css/dashboard-mobile.css')
+    link(rel='stylesheet', href='/css/dashboard-dark.css')
 
 block scripts
     script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js')
+    script(src='/js/md5.js')
     script(src='/js/axis.js')
     script(src='/js/jquery.jsonview.js')
     script(src='/js/stayFit.js')
@@ -46,12 +48,13 @@ block scripts
         span
             strong
                 i.fa.fa-clock-o
+                |  Scheduler
             pre.script
 
     script(type='text/html', id='email-preview-template')
         span
             strong
-                i.fa.fa-envelope
+                i.fa.fa-envelope.icon
                 |  
                 span.from
                 |  
@@ -61,7 +64,7 @@ block scripts
     script(type='text/html', id='tweet-preview-template')
         span
             strong
-                i.fa.fa-twitter
+                i.fa.fa-twitter.icon
                 |  
                 img.avatar
                 |  
@@ -72,7 +75,9 @@ block scripts
     script(type='text/html', id='github_event-preview-template')
         span
             strong
-                i.fa.fa-github
+                i.fa.fa-github.icon
+                |  
+                img.avatar
                 |  
                 span.username
                 |  
@@ -82,14 +87,11 @@ block scripts
 
     script(type='text/html', id='message-template')
         .item.message
-            .row.details
-                .col-sm-2
-                    span.label.type
-                    span.created_at
-                .col-sm-10
-                    .preview
-                        strong.sender
-                        pre.summary
+            span.created_at
+            .details
+                span.preview
+                    strong.sender
+                    pre.summary
             .full
                 pre.code
 
@@ -101,6 +103,12 @@ block scripts
             input.frameless.key(name='key')
             textarea.match(name='match')
             textarea.code.run(name='run')
+
+    script(type='text/html', id='todo-template')
+        .item.message.todo
+            .details
+                .tags
+                .body
 
     script(type='text/html', id='action-template')
         .item.action
@@ -127,14 +135,14 @@ block body
                 i.fa.fa-twitter
             li: a(data-toggle="tab", href="#github")
                 i.fa.fa-github
-            li: a(data-toggle="tab", href="#todo")
+            li: a(data-toggle="tab", href="#todos")
                 i.fa.fa-tasks
             li: a(data-toggle="tab", href="#triggers")
                 i.fa.fa-filter
             li: a(data-toggle="tab", href="#console")
                 i.fa.fa-terminal
 
-    #content
+    #content.dark
         .container
             .tab-content
                 .tab-pane.active#dashboard
@@ -183,7 +191,7 @@ block body
                     .page-body
                         .items
 
-                .tab-pane#todo
+                .tab-pane#todos
                     .page-head
                         h1 To Do
 

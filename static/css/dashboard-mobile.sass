@@ -1,4 +1,6 @@
 @media(max-width: 768px)
+    body
+        background: #f3f3f3
     
     #navigation
         top: 0
@@ -7,6 +9,7 @@
         bottom: auto
         width: auto
         height: 50px
+        overflow-y: hidden
 
         .nav.nav-tabs
             li
@@ -24,5 +27,37 @@
         top: 0
 
         .page-head
-            display: none
-            left: 0
+            position: static
+            padding: 66px 10px 15px
+            background: #f3f3f3
+            border-bottom: none
+            .label
+                display: inline-block
+                font-size: 0
+                padding: 2px 7px 3px
+                border-radius: 2px
+                text-transform: uppercase
+                &:first-letter
+                    font-size: 12px
+        .page-body
+            padding-top: 0
+            background: #f3f3f3
+
+    .page-body > .items
+        padding: 0 7px
+
+    .item.message
+        background: #fff
+        box-shadow: 0 2px 0 #e3e3e3
+        border-bottom: 9px solid transparent
+        .details
+            .preview
+                //white-space: normal
+
+    .widget
+        margin-top: 0
+        margin-bottom: 13px
+
+        .body
+            height: 150px
+

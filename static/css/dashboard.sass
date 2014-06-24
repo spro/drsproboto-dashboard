@@ -127,7 +127,7 @@ textarea.form-control
 
 #dashboard
     .page-body
-        background: #eee
+        background: #f3f3f3
         padding: 60px 20px 5px
 
     [class*=col-]
@@ -187,7 +187,8 @@ textarea.form-control
         background: none
 
 .item.message
-    border-bottom: 1px solid #eee
+    border-left: 6px solid #ddd
+    border-bottom: 1px solid #ddd
     [class^='col-']
         display: inline-block
     .col-1
@@ -197,24 +198,32 @@ textarea.form-control
     .col-3
         width: 800px
 
+    .label.type
+        display: inline-block
+        margin-top: -1px
+        margin-right: 10px
+        position: relative
+        top: -1px
+
+    .created_at
+        color: #ccc
+        font-size: 0.9em
+        position: absolute
+        top: 10px
+        right: 10px
+
     .details
         margin: 0
-        padding: 13px 0 12px
+        padding: 10px 13px 10px
+        line-height: 18px
 
         pre
-            display: inline-block
-            line-height: 1em
-            margin: -7px 0 -7px 7px
-
-        .created_at
-            color: #ccc
-            font-size: 0.9em
-            margin-left: 7px
-
-        .preview, .preview *
-            white-space: nowrap
-            overflow: hidden
-            text-overflow: ellipsis
+            display: block
+            line-height: 1.3em
+            padding: 4px 8px !important
+            margin: 4px 0 0
+            background: rgba(#ccc, 0.2)
+            white-space: normal
 
         .preview
             color: #666
@@ -254,13 +263,25 @@ textarea.form-control
     &.type-script
         background-color: #5b9b9f
     &.type-event
-        background-color: #ad90b4
+        background-color: #909090
     &.type-response
         background-color: #97b651
     &.type-register
-        background-color: #cd975f
+        background-color: #ad90b4
     &.type-unregister
         background-color: #a44b38
+
+.item
+    &.script
+        border-left-color: #5b9b9f
+    &.event
+        border-left-color: #909090
+    &.response
+        border-left-color: #97b651
+    &.register
+        border-left-color: #ad90b4
+    &.unregister
+        border-left-color: #a44b38
 
 .filters .label
     margin-left: 10px
@@ -297,7 +318,7 @@ input.frameless
     padding-left: 25px !important
 
 form
-    margin: 10px 0
+    margin: 0
 
 pre, textarea
     font-family: "Inconsolata", Monaco, "Oxygen Mono", monospace
@@ -311,7 +332,7 @@ pre, textarea, .form-control
     padding: 7px 10px !important
 
 .query
-    background: #eee
+    background: #f3f3f3
     border: none
     color: #000
 
@@ -376,4 +397,51 @@ pre, textarea, .form-control
     .actions
         top: 15px
         right: 10px
+
+#tweets
+    .item
+        .avatar
+            margin-left: 0
+        .details
+            .label
+                display: none
+            .icon
+                display: none
+            .text
+                display: block
+                margin-top: 7px
+
+#github
+    .item
+        .avatar
+            margin-left: 0
+        .details
+            .label
+                display: none
+            .icon
+                display: none
+            .action
+                margin-right: 3px
+
+#emails
+    .item
+        .details
+            .label
+                display: none
+            .from
+                margin: 0 3px
+            .text
+                display: block
+                margin-top: 7px
+
+#todos
+    .item
+        .details
+            .tags, .body
+                display: inline-block
+            .tags span
+                background: #eee
+                padding: 3px 5px
+                font-weight: 400
+                margin-right: 10px
 

@@ -1,0 +1,83 @@
+body
+    background: #000
+    color: #aaa
+
+#navigation
+    background: #000
+    border-bottom: 1px solid #333
+
+#content.dark
+    background: #000
+
+    .page-head, .page-body
+        background: #000
+        background: #000
+    .page-head
+        color: #555
+        border-bottom-color: #333
+
+    .page-body > .items
+        padding: 0
+
+    .item.message
+        border-bottom-color: #333
+        border-radius: 0
+        background: #000
+        box-shadow: none
+
+        .created_at
+            color: #666
+
+        .details
+            pre
+                background: #222
+                color: #999
+            .preview
+                color: #ccc
+                strong
+                    color: #ddd
+                .dark
+                    color: #888
+
+    #todos .item .details .tags span
+        background: #333
+
+    #triggers
+        input
+            background-color: transparent
+            color: #eee
+
+    #new-trigger, .trigger
+        textarea.match
+            background-color: #ccc
+
+    #console
+        .page-body
+            background: #000
+
+
+    .widget
+        background: #1a1a1a
+        box-shadow: none
+        border: 1px solid #282828
+        border-bottom-color: #333
+        .header
+            .title
+                color: #666
+        .select
+            border-color: #444
+
+    .tweet-item
+        .time
+            color: #777
+        strong
+            color: #ddd
+
+    .tweet-item + .tweet-item
+        border-top-color: #262626
+
+@media(max-width: 786px)
+    #content.dark
+        .item.message
+            border-bottom: 5px solid transparent
+
