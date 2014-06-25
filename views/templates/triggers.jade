@@ -1,0 +1,9 @@
+script(type='text/html', id='trigger-template')
+    .item.trigger
+        .actions
+            a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
+            a.btn.btn-xs.btn-success(data-action='save') Save
+        input.frameless.key(name='key')
+        textarea.match(name='match')
+        textarea.code.run(name='run')
+

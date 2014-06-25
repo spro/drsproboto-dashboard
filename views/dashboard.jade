@@ -14,6 +14,8 @@ block styles
     link(rel='stylesheet', href='/css/dashboard-mobile.css')
     if dark_mode
         link(rel='stylesheet', href='/css/dashboard-dark.css')
+        script.
+            window.is_dark = true;
 
 block scripts
     script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js')
@@ -23,114 +25,19 @@ block scripts
     script(src='/js/stayFit.js')
     script(src='/js/dashboard.js')
 
-    include messages-chart
-    include tweets-list
-    include sweater-widget
-    include weather-widget
-    include btc-chart
+    include widgets/messages-chart
+    include widgets/tweets-list
+    include widgets/sweater-widget
+    include widgets/weather-widget
+    include widgets/btc-chart
+    include widgets/wemo-widget
 
     include loading
 
-    script(type='text/html', id='script-preview-template')
-        span
-            strong
-                span.sender
-                |  &rarr;
-            pre.script
-
-    script(type='text/html', id='btc-preview-template')
-        span
-            strong
-                i.fa.fa-btc
-                |  
-                span.last
-
-    script(type='text/html', id='scheduled-preview-template')
-        span
-            strong
-                i.fa.fa-clock-o
-                |  Scheduler
-            pre.script
-
-    script(type='text/html', id='email-preview-template')
-        span
-            strong
-                i.fa.fa-envelope.icon
-                |  
-                span.from
-                |  
-            span.dark.subject
-            p.text
-
-    script(type='text/html', id='tweet-preview-template')
-        span
-            strong
-                i.fa.fa-twitter.icon
-                |  
-                img.avatar
-                |  
-                span.screen_name
-                |  
-            span.text
-
-    script(type='text/html', id='github_event-preview-template')
-        span
-            strong
-                i.fa.fa-github.icon
-                |  
-                img.avatar
-                |  
-                span.username
-                |  
-            span.action
-            |  
-            strong.repo_name
-
-    script(type='text/html', id='message-template')
-        .item.message
-            span.created_at
-            .details
-                span.preview
-                    strong.sender
-                    pre.summary
-            .full
-                pre.code
-
-    script(type='text/html', id='trigger-template')
-        .item.trigger
-            .actions
-                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
-                a.btn.btn-xs.btn-success(data-action='save') Save
-            input.frameless.key(name='key')
-            textarea.match(name='match')
-            textarea.code.run(name='run')
-
-    script(type='text/html', id='scheduled_event-template')
-        .item.message.scheduled
-            .actions
-                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
-            .details
-                strong
-                    i.fa.fa-clock-o.icon
-                    |  
-                    span.time
-                    |  
-                    span.interval
-                pre.script
-
-    script(type='text/html', id='todo-template')
-        .item.message.todo
-            .details
-                .tags
-                .body
-
-    script(type='text/html', id='action-template')
-        .item.action
-            .actions
-                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
-                a.btn.btn-xs.btn-success(data-action='save') Save
-            input.frameless.name(name='name')
-            textarea.form-control.code.toggled(name='code')
+    include templates/messages
+    include templates/triggers
+    include templates/scheduled
+    include templates/todo
 
 block body
     #line
@@ -158,7 +65,7 @@ block body
             li: a(data-toggle="tab", href="#console")
                 i.fa.fa-terminal
 
-    #content.dark
+    #content(class="#{ (dark_mode && 'dark') || '' }")
         .container
             .tab-content
                 .tab-pane.active#dashboard

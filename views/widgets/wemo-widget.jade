@@ -1,0 +1,13 @@
+link(rel='stylesheet', href='/css/widgets/wemo-widget.css')
+script(src='/js/widgets/wemo-widget.js')
+
+script(type='text/html', id='wemo-widget-template')
+    .widget#wemo-widget
+        .header
+            .title wemo
+        .body.result
+            i.fa.fa-lightbulb-o.icon
+            .buttons
+                a.btn(data-action='wemoOn') on
+                a.btn(data-action='wemoOff') off
+

@@ -1,0 +1,66 @@
+script(type='text/html', id='script-preview-template')
+    span
+        strong
+            span.sender
+            |  &rarr;
+        pre.script
+
+script(type='text/html', id='btc-preview-template')
+    span
+        strong
+            i.fa.fa-btc
+            |  
+            span.last
+
+script(type='text/html', id='scheduled-preview-template')
+    span
+        strong
+            i.fa.fa-clock-o
+            |  Scheduler
+        pre.script
+
+script(type='text/html', id='email-preview-template')
+    span
+        strong
+            i.fa.fa-envelope.icon
+            |  
+            span.from
+            |  
+        span.dark.subject
+        p.text
+
+script(type='text/html', id='tweet-preview-template')
+    span
+        strong
+            i.fa.fa-twitter.icon
+            |  
+            img.avatar
+            |  
+            span.screen_name
+            |  
+        span.text
+
+script(type='text/html', id='github_event-preview-template')
+    span
+        strong
+            i.fa.fa-github.icon
+            |  
+            img.avatar
+            |  
+            span.username
+            |  
+        span.action
+        |  
+        strong.repo_name
+
+script(type='text/html', id='message-template')
+    .item.message
+        span.created_at
+        .details
+            span.preview
+                strong.sender
+                pre.summary
+        .full
+            pre.code
+
+
