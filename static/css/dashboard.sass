@@ -8,6 +8,9 @@ body, h1, h2, h3, h4, h5, h6
 a
     color: #3a9edc
 
+strong
+    font-weight: 500
+
 textarea.form-control
     resize: none
     overflow-y: hidden
@@ -236,12 +239,6 @@ textarea.form-control
                 margin-top: 2px
                 margin-bottom: 0
 
-    .actions
-        text-align: right
-        position: relative
-        .btn
-            top: 0
-
     .full
         display: none
         .code
@@ -317,10 +314,21 @@ input.frameless
 .arrow + input
     padding-left: 25px !important
 
+.plus
+    padding: 0 10px
+    font-size: 22px
+    font-weight: 300
+    line-height: 22px
+    color: #666
+    cursor: pointer
+    &:hover
+        color: #333
+        text-decoration: none
+
 form
     margin: 0
 
-pre, textarea
+pre, textarea, .code
     font-family: "Inconsolata", Monaco, "Oxygen Mono", monospace
     font-size: 13px !important
     word-break: break-all
@@ -365,10 +373,52 @@ pre, textarea, .form-control
         .btn
             margin-left: 5px
             position: relative
-            top: -4px
+            top: 7px
+            right: 10px
     &:hover
         .actions
             opacity: 1
+
+.card
+    padding: 10px
+    background: #fff
+    box-shadow: 0 2px 0 #e3e3e3
+    .card-title
+        color: #ccc
+        text-transform: uppercase
+        margin: 0 0 10px
+        font-size: 1em
+
+#new-scheduled_event
+    display: none
+    padding: 0 10px
+    .form-group
+        .input-group
+            border-top-right-radius: 3px
+            border-top-left-radius: 3px
+            border: 1px solid #eee
+            border-width: 1px 1px 0 1px
+            display: block
+            width: auto
+        input.command
+            display: inline-block
+            width: 20%
+        input.time
+            display: inline-block
+            width: 80%
+        input.script
+            margin-bottom: 10px
+            border-bottom-left-radius: 3px
+            border-bottom-right-radius: 3px
+        overflow: hidden
+        border-radius: 2px
+    textarea
+        display: block
+        width: 100%
+        margin: 0
+        box-sizing: border-box
+    .btn
+        margin-left: 10px
 
 #new-trigger, .trigger
     textarea

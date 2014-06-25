@@ -3,6 +3,7 @@ schema =
     behavior: ['query', 'action']
     message: ['sender', 'type', 'data']
     todo: ['body']
+    scheduled_event: ['time', 'interval', 'script']
     trigger: ['key', 'match', 'run']
 
 for _type, _attrs of schema
@@ -230,7 +231,7 @@ GithubEvents = Messages.extend
 GithubEventsView = MessagesView.extend
     type: 'github_event'
     collection: 'github_events'
-    el: "#github"
+    el: '#github'
 
 Tweet = Message.extend
     type: 'tweet'
@@ -242,7 +243,7 @@ Tweets = Messages.extend
 TweetsView = MessagesView.extend
     type: 'tweet'
     collection: 'tweets'
-    el: "#tweets"
+    el: '#tweets'
 
 Email = Message.extend
     type: 'email'
@@ -254,7 +255,7 @@ Emails = Messages.extend
 EmailsView = MessagesView.extend
     type: 'email'
     collection: 'emails'
-    el: "#emails"
+    el: '#emails'
 
 Todo::parse = (todo) ->
     console.log 'parsing ' + todo.body
@@ -270,6 +271,42 @@ TodoView::renderUpdate = ->
     for tag in @model.get('tags')
         $t = $("<span class='tag'>#{ tag }</span>")
         @$('.tags').append $t
+
+Scheduled_event::destroy = ->
+    $.post '/script', {script: 'every cancel ' + @get('id')}, (_response) ->
+        console.log _response
+        if _response.data?
+            console.log ' a success '
+
+Scheduled_events::fetch = ->
+    console.log 'fetching scheduled'
+    $.post '/script', {script: 'every list'}, (_response) =>
+        if _response.data? && typeof _response.data == 'object'
+            console.log 'got data'
+            console.log _response.data
+            @add _response.data
+            @trigger('sync')
+
+Scheduled_eventsView::newScheduledEvent = ->
+    @$('#new-scheduled_event').slideToggle()
+
+Scheduled_eventView::render = ->
+    super
+    console.log 'holy shit'
+    console.log @template
+    @$('.time').text moment(@model.get('time')).fromNow()
+    @$('.interval').text '(every ' + @model.get('interval_raw') + ')'
+    @$('.script').text @model.get('message').script
+    @$el
+
+NewScheduled_eventView::save = (e) ->
+    e.preventDefault()
+    alert 'saving'
+    _in = @$('[name=in]').val()
+    _script = @$('[name=script]').val()
+    script = "in #{ _in } \"#{ _script  }\""
+    $.post '/script', {script: script}, (_response) =>
+        console.log _response
 
 TriggerView::save = EditTriggerView::save
 TriggerView::renderUpdate = ->
@@ -300,6 +337,11 @@ $ ->
     window.todos = new Todos()
     window.todos_view = new TodosView
         collection: todos
+
+    window.scheduled_events = new Scheduled_events()
+    window.scheduled_events_view = new Scheduled_eventsView
+        collection: scheduled_events
+        el: '#scheduled'
 
     window.triggers = new Triggers()
     window.triggers_view = new TriggersView
@@ -343,13 +385,14 @@ showLoading = (view) ->
 
 prepareTab =
     default: ->
-        $('body').css 'background-color', '#fff'
+        $('body').css 'background-color', ''
 
     messages: -> showLoading messages_view
     tweets: -> showLoading tweets_view
     emails: -> showLoading emails_view
     github: -> showLoading github_events_view
     todos: -> showLoading todos_view
+    scheduled: -> showLoading scheduled_events_view
     triggers: -> showLoading triggers_view
 
     dashboard: ->

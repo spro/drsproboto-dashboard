@@ -105,6 +105,19 @@ block scripts
             textarea.match(name='match')
             textarea.code.run(name='run')
 
+    script(type='text/html', id='scheduled_event-template')
+        .item.message.scheduled
+            .actions
+                a.btn.btn-xs.btn-danger(data-action='confirm_delete') Delete
+            .details
+                strong
+                    i.fa.fa-clock-o.icon
+                    |  
+                    span.time
+                    |  
+                    span.interval
+                pre.script
+
     script(type='text/html', id='todo-template')
         .item.message.todo
             .details
@@ -138,6 +151,8 @@ block body
                 i.fa.fa-github
             li: a(data-toggle="tab", href="#todos")
                 i.fa.fa-tasks
+            li: a(data-toggle="tab", href="#scheduled")
+                i.fa.fa-clock-o
             li: a(data-toggle="tab", href="#triggers")
                 i.fa.fa-filter
             li: a(data-toggle="tab", href="#console")
@@ -198,6 +213,26 @@ block body
 
                     // List items
                     .page-body
+                        .items
+
+                .tab-pane#scheduled
+                    .page-head
+                        .pull-right
+                            a.plus(data-action='newScheduledEvent') +
+                        h1 Scheduled
+
+                    .page-body
+                        form#new-scheduled_event
+                            .form-group.card
+                                h5.card-title New Event
+                                .input-group
+                                    input.frameless.command(name='command', placeholder='command', value='in')
+                                    input.frameless.time(name='time', placeholder='time')
+                                input.frameless.code.script(name='script', placeholder='script')
+                                .pull-right
+                                    button(data-action='cancel').btn.btn-sm.btn-default Cancel
+                                    button(data-action='save').btn.btn-sm.btn-success Schedule
+
                         .items
 
                 .tab-pane#triggers

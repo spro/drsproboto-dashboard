@@ -20,11 +20,11 @@ class window.SweaterWidget extends Backbone.View
     render: (_data) ->
         if _data.sweater > 0.75
             @$('.result .text').text 'Yes'
-            @$('.result .icon').attr 'src', '/images/sweater-yes.png'
+            @$('.result .icon').attr 'sweater', 'yes'
         else if _data.sweater < 0.25
             @$('.result .text').text 'No'
-            @$('.result .icon').attr 'src', '/images/sweater-no.png'
+            @$('.result .icon').attr 'sweater', 'no'
         else
             @$('.result .text').text 'Maybe'
-            @$('.result .icon').attr 'src', '/images/sweater-maybe.png'
+            @$('.result .icon').attr 'sweater', 'maybe'
 

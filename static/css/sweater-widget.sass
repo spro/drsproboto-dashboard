@@ -6,10 +6,21 @@
 
         .icon
             height: 90px
+            width: 50px
+            display: inline-block
             vertical-align: middle
             position: relative
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
             top: -25px
             opacity: 0.25
+            &[sweater=yes]
+                background-image: url(/images/sweater-yes.png)
+            &[sweater=no]
+                background-image: url(/images/sweater-no.png)
+            &[sweater=maybe]
+                background-image: url(/images/sweater-maybe.png)
 
         .text
             font-size: 40px
@@ -39,4 +50,10 @@
             padding-top: 20px
             .icon
                 height: 70px
+                &[sweater=yes]
+                    background-image: url(/images/sweater-yes-light.png)
+                &[sweater=no]
+                    background-image: url(/images/sweater-no-light.png)
+                &[sweater=maybe]
+                    background-image: url(/images/sweater-maybe-light.png)
 
