@@ -1,0 +1,49 @@
+#wemo-widget
+    text-align: center
+    
+    .icon
+        font-size: 160px
+        color: #fff
+        position: absolute
+        top: 20%
+        right: 50%
+        opacity: 0.0
+        -webkit-transition: opacity 0.3s
+
+    &[wemo-status=on]
+        .icon
+            opacity: 1.0
+
+    &[wemo-status=off]
+        .icon
+            opacity: 0.1
+
+    .buttons
+        position: absolute
+        left: 60%
+        top: 35%
+    .btn
+        text-transform: uppercase
+        display: block
+        font-size: 11px
+        padding: 4px 5px 5px
+        border-radius: 25px
+        margin: 10px 0
+        width: 50px
+        color: #444
+        border: 2px solid #444
+
+    &[wemo-status=on] a[data-action=wemoOn]
+        background: #fff
+        color: #000
+        border-color: #fff
+    &[wemo-status=off] a[data-action=wemoOff]
+        background: #fff
+        color: #000
+        border-color: #fff
+
+@media (max-width: 768px)
+    #wemo-widget
+        .icon
+            font-size: 140px
+

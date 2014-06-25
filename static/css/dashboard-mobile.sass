@@ -11,6 +11,7 @@
         width: auto
         height: 51px
         overflow-y: hidden
+        box-shadow: none
         -webkit-transform: translateZ(0)
 
         .nav.nav-tabs
@@ -25,7 +26,9 @@
 
                 &.active
                     a
-                        border-left-color: transparent
+                        border-color: transparent
+                        border-bottom: 3px solid #3a9edc
+                        background-color: #111
 
                 &.head
                     .avatar
@@ -67,10 +70,8 @@
             margin-bottom: 0
 
     .widget
-        margin-bottom: 0
-        margin-top: 13px
-        &:first-child
-            margin-top: 10px
+        margin-bottom: 15px
+        margin-top: 0
 
         .body
             height: 150px

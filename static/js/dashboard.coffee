@@ -19,7 +19,9 @@ DashboardView = Backbone.View.extend
     initialize: ->
         console.log "Creating Dashboard"
 
+    rendered: false
     render: ->
+        return if @rendered
         $row1 = $('<div class="row">')
         $col1 = $('<div class="col-md-8">')
         $col2 = $('<div class="col-md-4">')
@@ -27,6 +29,8 @@ DashboardView = Backbone.View.extend
         $col3 = $('<div class="col-md-4">')
         $col4 = $('<div class="col-md-4">')
         $col5 = $('<div class="col-md-4">')
+        $row3 = $('<div class="row">')
+        $col6 = $('<div class="col-md-4">')
 
         @messages_chart = new MessagesChart()
         $col1.append @messages_chart.$el
@@ -48,16 +52,23 @@ DashboardView = Backbone.View.extend
         $col5.append @sweater_widget.$el
         @sweater_widget.getSweater()
 
+        @wemo_widget = new WemoWidget()
+        $col6.append @wemo_widget.$el
+        @wemo_widget.getWemo()
+
         $row1.append $col1
         $row1.append $col2
         $row2.append $col3
         $row2.append $col4
         $row2.append $col5
+        $row3.append $col6
 
         @$el.append $row1
         @$el.append $row2
+        @$el.append $row3
 
         $(window).on 'resize', => @reRender()
+        @rendered = true
 
     reRender: ->
         @messages_chart.render()
@@ -396,7 +407,7 @@ prepareTab =
     triggers: -> showLoading triggers_view
 
     dashboard: ->
-        $('body').css 'background-color', '#eee'
+        $('body').css 'background-color', '#eee' unless is_dark
         dashboard_view.render()
 
     console: ->

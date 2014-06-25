@@ -4,7 +4,10 @@ body
 
 #navigation
     background: rgba(#000, 0.8)
-    border-top: 1px solid #262626
+    border-right: 1px solid #262626
+@media (max-width: 768px)
+    #navigation
+        border-top: 1px solid #262626
 
 .card
     padding: 10px 0
@@ -59,18 +62,21 @@ body
         textarea.match
             background-color: #ccc
 
+    #dashboard
+        .page-body
+            padding-top: 65px
+
     #console
         .page-body
             background: #000
 
     .widget
-        background: #1a1a1a
+        background: transparent
         box-shadow: none
-        border: 1px solid #282828
-        border-bottom-color: #333
+        border: 1px solid #222
         .header
             .title
-                color: #666
+                color: #555
         .select
             border-color: #444
 
