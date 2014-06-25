@@ -3,20 +3,11 @@
     
     .icon
         font-size: 160px
-        color: #fff
+        color: #ccc
         position: absolute
         top: 20%
         right: 50%
-        opacity: 0.0
-        -webkit-transition: opacity 0.3s
-
-    &[wemo-status=on]
-        .icon
-            opacity: 1.0
-
-    &[wemo-status=off]
-        .icon
-            opacity: 0.1
+        -webkit-transition: color 0.3s
 
     .buttons
         position: absolute
@@ -30,20 +21,38 @@
         border-radius: 25px
         margin: 10px 0
         width: 50px
-        color: #444
-        border: 2px solid #444
+        color: #bbb
+        border: 2px solid #bbb
 
-    &[wemo-status=on] a[data-action=wemoOn]
-        background: #fff
-        color: #000
-        border-color: #fff
-    &[wemo-status=off] a[data-action=wemoOff]
-        background: #fff
-        color: #000
-        border-color: #fff
+    &[wemo-status=on]
+        .icon
+            color: #F0E386
+        a[data-action=wemoOn]
+            background: #555
+            color: #fff
+            border-color: #555
+    &[wemo-status=off]
+        a[data-action=wemoOff]
+            background: #555
+            color: #fff
+            border-color: #555
 
 @media (max-width: 768px)
     #wemo-widget
         .icon
             font-size: 140px
 
+#content.dark #wemo-widget
+    .icon
+        color: #222
+
+    &[wemo-status=on]
+        a[data-action=wemoOn]
+            background: #ccc
+            color: #000
+            border-color: #ccc
+    &[wemo-status=off]
+        a[data-action=wemoOff]
+            background: #ccc
+            color: #000
+            border-color: #ccc

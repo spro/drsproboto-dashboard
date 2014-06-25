@@ -407,7 +407,7 @@ prepareTab =
     triggers: -> showLoading triggers_view
 
     dashboard: ->
-        $('body').css 'background-color', '#eee' unless is_dark
+        $('body').css 'background-color', '#eee' unless is_dark?
         dashboard_view.render()
 
     console: ->
