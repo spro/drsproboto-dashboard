@@ -12,7 +12,8 @@ block styles
     link(rel='stylesheet', href='/css/chart.css')
     link(rel='stylesheet', href='/css/loading.css')
     link(rel='stylesheet', href='/css/dashboard-mobile.css')
-    link(rel='stylesheet', href='/css/dashboard-dark.css')
+    if dark_mode
+        link(rel='stylesheet', href='/css/dashboard-dark.css')
 
 block scripts
     script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js')

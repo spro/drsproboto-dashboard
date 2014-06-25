@@ -23,7 +23,8 @@ app = polar.setup_app
 # Define and generate REST routes
 
 app.get '/', (req, res) ->
-    res.render 'dashboard'
+    res.render 'dashboard',
+        dark_mode: (new Date().getHours() > 21)
 
 app.post '/script', (req, res) ->
     script = req.body.script
